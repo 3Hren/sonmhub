@@ -1,0 +1,15 @@
+# Network settings for the app.
+network:
+  # Tuple of an IP address with port for HTTP listener to bind on.
+  # Note that binding on `::` will bind on `0.0.0.0` too as long as
+  # the `net.ipv6.bindv6only` sysctl is set to 0 (default).
+  addr: ["::", 8080]
+  # Limit for the queue of incoming connections.
+  backlog: 1024
+
+github: &github
+  oauth_token: <secret>
+
+merge:
+  interval: 60
+  github: *github

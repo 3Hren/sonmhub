@@ -1,0 +1,21 @@
+[package]
+name = "sonmhub"
+version = "0.1.0"
+authors = ["Evgeny Safronov <division494@gmail.com>"]
+
+[dependencies]
+actix = "0.5"
+actix-web = { version = "0.6", features = ["alpn"] }
+ansi_term = "0.9"
+clap = "2"
+futures = "0.1"
+futures-await = "0.1"
+serde = "1"
+serde_json = "1"
+serde_yaml = "0.7"
+serde_derive = "1"
+tokio = "0.1"
+log = "0.4"
+fern = "0.5"
+chrono = "0.4"
+url = "1"

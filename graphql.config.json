@@ -1,0 +1,19 @@
+{
+  "README_schema": "Specifies how to load the GraphQL schema that completion, error highlighting, and documentation is based on in the IDE",
+  "schema": {
+    "file": "graphql/schema.graphqls"
+  },
+  "README_endpoints": "A list of GraphQL endpoints that can be queried from '.graphql' files in the IDE",
+  "endpoints": [
+    {
+      "name": "github",
+      "url": "https://api.github.com/graphql",
+      "options": {
+        "headers": {
+          "authorization": "bearer <secret>",
+          "user-agent": "JS GraphQL"
+        }
+      }
+    }
+  ]
+}

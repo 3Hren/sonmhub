@@ -1,0 +1,27 @@
+{
+  repository(owner: "sonm-io", name: "core") {
+    pullRequests(first: 64, states: OPEN, orderBy: { field: CREATED_AT, direction: ASC}) {
+      nodes {
+        number
+        title
+        mergeable
+        baseRefName
+        headRefName
+        headRef {
+          name
+          target {
+            oid
+          }
+        }
+        reviews(first: 64) {
+          nodes{
+            author{
+              login
+            }
+            state
+          }
+        }
+      }
+    }
+  }
+}
