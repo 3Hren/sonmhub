@@ -29,7 +29,7 @@ where
     Ok(duration)
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct MergeBotConfig {
     #[serde(deserialize_with = "deserialize_duration")]
     interval: Duration,
@@ -63,7 +63,7 @@ impl NetworkConfig {
     }
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct Config {
     network: NetworkConfig,
     merge: MergeBotConfig,

@@ -50,7 +50,7 @@ impl From<JsonPayloadError> for Error {
     }
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct Config {
     /// GitHub base URL.
     #[serde(default)]
@@ -113,22 +113,15 @@ pub struct PullRequestApi {
 }
 
 impl PullRequestApi {
-    pub fn state(&self, reference: String) -> impl Future<Item =CombinedStatus, Error = Error> {
-        PullRequestApi::execute_state(self.clone(), reference)
+    pub fn state(&self, reference: &str) -> impl Future<Item = CombinedStatus, Error = Error> {
+        let path = format!("repos/{}/{}/commits/{}/status", self.owner, self.repo, reference);
+        let url = self.cfg.base_url.clone().with_path(&path);
+
+        PullRequestApi::execute_state(self.clone(), url)
     }
 
     #[async]
-    pub fn execute_state(self, reference: String) -> Result<CombinedStatus, Error> {
-        let mut url = Url::parse(&self.cfg.base_url)?;
-        url.path_segments_mut().unwrap().extend(&[
-            "repos",
-            &self.owner,
-            &self.repo,
-            "commits",
-            &reference,
-            "status",
-        ]);
-
+    pub fn execute_state(self, url: Url) -> Result<CombinedStatus, Error> {
         let mut request = ClientRequest::get(url)
             .header("Accept", self.cfg.accept())
             .header("Authorization", self.cfg.authorization())
@@ -158,9 +151,9 @@ impl Client {
         Self { cfg }
     }
 
-    pub fn pull_requests(&self, owner: &str, repo: &str) {
-        unimplemented!()
-    }
+//    pub fn repository(&self, owner: &str, repo: &str) -> RepositoryApi {
+//        unimplemented!()
+//    }
 
     pub fn pull_request(&self, owner: &str, repo: &str) -> PullRequestApi {
         PullRequestApi {
@@ -200,7 +193,7 @@ impl Client {
                 debug!("<- {:?}", body);
                 Ok(body)
             }
-            status => Ok(Value::Null),
+            _status => Ok(Value::Null),
         }
     }
 }

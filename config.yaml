@@ -8,7 +8,7 @@ network:
   backlog: 1024
 
 github: &github
-  oauth_token: <secret>
+  oauth_token: b921e6f5ddb14d96f988f2ab13a24a489f4f3beb
 
 merge:
   interval: 60
